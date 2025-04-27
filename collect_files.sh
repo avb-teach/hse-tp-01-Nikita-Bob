@@ -14,7 +14,11 @@ fi
 declare -A filename_count
 
 
-find "$input_dir" $max_depth_arg -type f | while read -r file; do
+if [ -z "$max_depth_arg" ]; then
+  find "$input_dir" -type f
+else
+  find "$input_dir" -maxdepth "$depth_val" -type f
+fi | while read -r file; do
   base_name=$(basename "$file")
   new_name="$base_name"
 
